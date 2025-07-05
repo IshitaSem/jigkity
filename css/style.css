@@ -1,0 +1,40 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #fffafc;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #ff69b4;
+  margin-bottom: 20px;
+}
+
+#controls {
+  margin-bottom: 15px;
+}
+
+select, button {
+  font-size: 1rem;
+  margin: 0 5px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+canvas {
+  border: 4px solid #ffb6c1;
+  border-radius: 12px;
+  margin-top: 10px;
+  max-width: 100%;
+}
+
+video {
+  margin-top: 20px;
+  border-radius: 12px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

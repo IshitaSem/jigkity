@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jigsaw Puzzle Game</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <h1>🧩 Cat Jigsaw Puzzle</h1>
+
+  <div id="controls">
+    <label for="difficulty">Difficulty:</label>
+    <select id="difficulty">
+      <option value="3">3x3</option>
+      <option value="4" selected>4x4</option>
+      <option value="5">5x5</option>
+    </select>
+    <button id="shuffleBtn">New Puzzle</button>
+    <button id="toggleMusic">🔊</button>
+  </div>
+
+  <canvas id="puzzleCanvas" width="600" height="600"></canvas>
+
+  <audio id="bgMusic" src="../sounds/bg.mp3" loop></audio>
+  <video id="memeVideo" width="600" controls style="display:none;"></video>
+
+  <script src="../js/jigsaw.js"></script>
+</body>
+</html>
