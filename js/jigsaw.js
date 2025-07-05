@@ -15,12 +15,12 @@ let dragging = null;
 let offsetX = 0, offsetY = 0;
 let imageName = "";
 
-const imageList = ["cat1.jpeg"]; // Make sure this file exists in ../images/
+const imageList = ["cat1.jpeg", "cat2.jpeg", "jigsaw1.jpeg", "jigsaw2.jpeg"]; // Add more images if needed
 
 function randomImage() {
   imageName = imageList[Math.floor(Math.random() * imageList.length)];
   console.log("Selected image:", imageName);
-  return `../images/${imageName}`;
+  return `images/${imageName}`; // ✅ removed ../
 }
 
 function shuffleArray(arr) {
@@ -51,8 +51,6 @@ function createPieces() {
       pieces.push({
         correctX: x * pieceSize,
         correctY: y * pieceSize,
-        x: x * pieceSize,
-        y: y * pieceSize,
         currentX: 0,
         currentY: 0
       });
@@ -77,6 +75,7 @@ function drawPuzzle() {
       p.correctX, p.correctY, pieceSize, pieceSize,
       p.currentX, p.currentY, pieceSize, pieceSize
     );
+    ctx.strokeStyle = "#333";
     ctx.strokeRect(p.currentX, p.currentY, pieceSize, pieceSize);
   }
 }
@@ -96,6 +95,7 @@ canvas.addEventListener("mousedown", e => {
     dragging = clicked;
     offsetX = x - dragging.currentX;
     offsetY = y - dragging.currentY;
+    canvas.style.cursor = "grabbing"; // UI tweak
   }
 });
 
@@ -114,6 +114,7 @@ canvas.addEventListener("mouseup", () => {
   dragging.currentX = snappedX;
   dragging.currentY = snappedY;
   dragging = null;
+  canvas.style.cursor = "grab";
   drawPuzzle();
   checkWin();
 });
@@ -125,7 +126,7 @@ function checkWin() {
   );
   if (win) {
     console.log("Puzzle solved!");
-    memeVideo.src = `../videos/${imageName.replace(".jpeg", ".mp4")}`;
+    memeVideo.src = `videos/${imageName.replace(".jpeg", ".mp4")}`; // ✅ removed ../
     memeVideo.style.display = "block";
     memeVideo.play();
   }
