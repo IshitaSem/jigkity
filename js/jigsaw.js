@@ -15,12 +15,12 @@ let dragging = null;
 let offsetX = 0, offsetY = 0;
 let imageName = "";
 
-const imageList = ["cat1.jpeg", "cat2.jpeg", "jigsaw1.jpeg", "jigsaw2.jpeg"]; // Add more images if needed
+const imageList = ["cat1.jpeg", "jigsaw1.jpeg"]; // Your images here
 
 function randomImage() {
   imageName = imageList[Math.floor(Math.random() * imageList.length)];
   console.log("Selected image:", imageName);
-  return `images/${imageName}`; // ✅ removed ../
+  return `images/${imageName}`;
 }
 
 function shuffleArray(arr) {
@@ -34,12 +34,11 @@ function loadImageAndCreatePuzzle() {
   img = new Image();
   img.src = randomImage();
   img.onload = () => {
-    console.log("Image loaded successfully");
     createPieces();
     drawPuzzle();
   };
   img.onerror = () => {
-    console.error("Failed to load image:", img.src);
+    console.error("Image load failed:", img.src);
   };
 }
 
@@ -51,6 +50,8 @@ function createPieces() {
       pieces.push({
         correctX: x * pieceSize,
         correctY: y * pieceSize,
+        x: x * pieceSize,
+        y: y * pieceSize,
         currentX: 0,
         currentY: 0
       });
@@ -75,7 +76,7 @@ function drawPuzzle() {
       p.correctX, p.correctY, pieceSize, pieceSize,
       p.currentX, p.currentY, pieceSize, pieceSize
     );
-    ctx.strokeStyle = "#333";
+    ctx.strokeStyle = "#444";
     ctx.strokeRect(p.currentX, p.currentY, pieceSize, pieceSize);
   }
 }
@@ -89,13 +90,14 @@ function getPieceAt(x, y) {
 
 canvas.addEventListener("mousedown", e => {
   const rect = canvas.getBoundingClientRect();
-  const x = e.clientX - rect.left, y = e.clientY - rect.top;
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
   const clicked = getPieceAt(x, y);
   if (clicked) {
     dragging = clicked;
     offsetX = x - dragging.currentX;
     offsetY = y - dragging.currentY;
-    canvas.style.cursor = "grabbing"; // UI tweak
+    canvas.style.cursor = "grabbing";
   }
 });
 
@@ -125,8 +127,8 @@ function checkWin() {
     Math.abs(p.currentY - p.correctY) < 5
   );
   if (win) {
-    console.log("Puzzle solved!");
-    memeVideo.src = `videos/${imageName.replace(".jpeg", ".mp4")}`; // ✅ removed ../
+    console.log("Puzzle Solved!");
+    memeVideo.src = `videos/${imageName.replace(".jpeg", ".mp4")}`;
     memeVideo.style.display = "block";
     memeVideo.play();
   }
